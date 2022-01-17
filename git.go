@@ -98,13 +98,13 @@ func (g *GitCmd) GetState(path string) (State, error) {
 
 func ParseStatusBranch(status string) (State, error) {
 	// 5 variants of status branch
-	// ## master
-	// ## master...origin/master
-	// ## master...origin/master [ahead 1]
-	// ## master...origin/master [behind 1]
-	// ## master...origin/master [ahead 1, behind 1]
+	// ## main
+	// ## main...origin/main
+	// ## main...origin/main [ahead 1]
+	// ## main...origin/main [behind 1]
+	// ## main...origin/main [ahead 1, behind 1]
 
-	reg := regexp.MustCompile("## master(\\.\\.\\.origin\\/master *(\\[(ahead|behind) *[0-9]+ *(, *behind *[0-9]+)? *])?)?")
+	reg := regexp.MustCompile("## main(\\.\\.\\.origin\\/main *(\\[(ahead|behind) *[0-9]+ *(, *behind *[0-9]+)? *])?)?")
 	matches := reg.FindAllStringSubmatch(status, -1)
 
 	if len(matches) == 0 {
@@ -116,22 +116,22 @@ func ParseStatusBranch(status string) (State, error) {
 		return Error, fmt.Errorf("unable to parse status: %v", status)
 	}
 
-	// ## master
+	// ## main
 	if groups[1] == "" {
 		return Ahead, nil
 	}
 
-	// ## master...origin/master
+	// ## main...origin/main
 	if groups[2] == "" {
 		return Sync, nil
 	}
 
-	// ## master...origin/master
+	// ## main...origin/main
 	if groups[3] == "behind" {
 		return OutOfSync, nil
 	}
 
-	// ## master...origin/master
+	// ## main...origin/main
 	if groups[3] == "ahead" {
 		if groups[4] == "" {
 			return Ahead, nil
@@ -187,7 +187,7 @@ func AddAndCommit(path string) error {
 }
 
 func Merge(path string) error {
-	cmd := exec.Command("git", "merge", "origin/master", "--allow-unrelated-histories", "--no-commit")
+	cmd := exec.Command("git", "merge", "origin/main", "--allow-unrelated-histories", "--no-commit")
 	cmd.Dir = path
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -196,7 +196,7 @@ func Merge(path string) error {
 }
 
 func Push(path string) error {
-	cmd := exec.Command("git", "push", "origin", "master", "-u")
+	cmd := exec.Command("git", "push", "origin", "main", "-u")
 	cmd.Dir = path
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

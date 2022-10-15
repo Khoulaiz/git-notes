@@ -9,8 +9,8 @@
     <key>ProgramArguments</key>
     <array>
       <string>/Users/vwh2ipn/projects/go/src/sahlbach.com/git-notes/service_conf/mac.bash</string>
-      <string>/Users/vwh2ip/projects/go/src/sahlbach.com/git-notes/git-notes</string>
-      <string>/Users/vwh2ip/projects/go/src/sahlbach.com/git-notes/git-notes.json</string>
+      <string>/Users/vwh2ipn/projects/go/src/sahlbach.com/git-notes/git-notes</string>
+      <string>/Users/vwh2ipn/projects/go/src/sahlbach.com/git-notes/git-notes.json</string>
     </array>
 
     <key>KeepAlive</key>
